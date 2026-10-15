@@ -22,27 +22,25 @@ hello-toeknfactory想解决的，就是"从算力到 token"这条链上的每一
 | [第 0 章 为什么需要一座 token 工厂](./docs/ch00-为什么需要token工厂.md) | 推理演化史、三代引擎、瓶颈转移、token 自由的定义 | ✅ |
 | [第 1 章 算力 ≠ token：从裸卡到可用服务](./docs/ch01-算力不等于token.md) | TTFT/TPOT/Goodput 指标、Prefill vs Decode 两种瓶颈、显存账本 | ✅ |
 | [第 2 章 token 工厂全景：一条从 GPU 到 API 的流水线](./docs/ch02-token工厂全景.md) | 工厂剖面图（五层）、各层职责与代表技术、vLLM/SGLang/GPUStack 生态位、裸装 vs 平台 | ✅ |
-| [第 3 章 推理引擎原理与生态](./docs/ch03-推理引擎原理与生态.md) | 引擎四大件、按切入口分类的生态全景、vLLM 与 SGLang 的定位差异、出厂规格怎么看 | ✅ |
-| [第 4 章 KV Cache 与注意力工程化](./docs/ch04-KV缓存与注意力工程化.md) | KV 显存公式、MHA→MLA、PagedAttention vs RadixAttention、前缀缓存陷阱 | ✅ |
-| [第 5 章 调度与批处理](./docs/ch05-调度与批处理.md) | 连续批处理、Chunked Prefill、vLLM V1 架构、缓存感知路由 | ✅ |
-| [第 6 章 并行策略全景](./docs/ch06-并行策略全景.md) | DP/TP/PP/SP、MoE 与 EP、并行决策表 | ✅ |
-| [第 7 章 投机解码](./docs/ch07-投机解码.md) | Draft-Verify、六种方案选型、接受率、双引擎配置 | ✅ |
-| [第 8 章 vLLM 快速上手与单机多卡部署](./docs/ch08-vLLM快速上手与多卡部署.md) | 安装三选一、离线/API、启动参数、单机多卡 TP/PP | ✅ |
-| [第 9 章 vLLM 核心能力](./docs/ch09-vLLM核心能力.md) | 多卡多机、量化、结构化输出、LoRA、多模态、Embedding | ✅ |
-| [第 10 章 vLLM 性能调优](./docs/ch10-vLLM性能调优.md) | 调优基线、显存/并发、`max-num-batched-tokens`、敏感度排序 | ✅ |
-| [第 11 章 SGLang 快速上手与低延迟实战](./docs/ch11-SGLang快速上手.md) | 三种使用方式、前端 DSL、参数对照、命中率实战 | ✅ |
-| [第 12 章 SGLang 核心能力](./docs/ch12-SGLang核心能力.md) | RadixAttention 实战、压缩 FSM、MoE 部署、Router、RL rollout | ✅ |
-| [第 13 章 PD 分离与大规模部署](./docs/ch13-PD分离与大规模部署.md) | PD 分离架构、KV 传输、成本账、不该做的门槛 | ✅ |
-| [第 14 章 双引擎选型与决策](./docs/ch14-双引擎选型与决策.md) | vLLM vs SGLang、横向对比、国产化适配、选型决策树 | ✅ |
-| [第 15 章 GPUStack 是什么](./docs/ch15-GPUStack是什么.md) | 定位（MaaS+GPUaaS）、架构解剖（Server/Worker/Gateway/Ray）、请求数据流、硬件版图 | ✅ |
-| [第 16 章 装起一座 GPUStack](./docs/ch16-安装GPUStack.md) | 前置检查、一键安装、纳管 Worker、单机多卡、Web 控制台、排障 | ✅ |
-| [第 17 章 部署模型：从 GPU 到 OpenAI API](./docs/ch17-部署模型到API.md) | 模型来源、四种部署模式、自动引擎选择、API Key/Endpoint/Playground、接入上层应用、计量限流 | ✅ |
-| [第 18 章 GPUStack 技术栈深潜](./docs/ch18-GPUStack技术栈深潜.md) | Binpack/Spread 调度、Ray 分布式 vLLM、Higress 网关、Prometheus/Grafana、加速集成、规模化复盘 | ✅ |
-| [第 19 章 压测与可观测](./docs/ch19-压测与可观测.md) | 负载建模、压测陷阱、吞吐-延迟拐点、P99 诊断、监控面板 | ✅ |
-| [第 20 章 生产部署架构](./docs/ch20-生产部署架构.md) | 部署形态、K8s、网关五职责、灰度、成本优化、完整架构示例 | ✅ |
-| [第 21 章 每百万 token 的成本核算](./docs/ch21-成本核算.md) | 产能曲线、成本构成、每百万 token 成本公式、盈亏平衡、容量规划 | ✅ |
-| [第 22 章 多租户、计量与治理](./docs/ch22-多租户计量与治理.md) | 多租户三层、API Key 生命周期、Token 计量计费、限流降级审计、企业版边界 | ✅ |
-| [第 23 章 完整案例：搭起你的 token 工厂](./docs/ch23-完整案例.md) | 目标定义、方案设计、端到端搭建、压测与成本验收、排障实战、完整因果链 | ✅ |
+| [第 3 章 推理引擎原理与生态](./docs/ch03-推理引擎原理与生态.md) | 引擎四大件、按切入口分类的生态全景、vLLM 与 SGLang 的定位差异、出厂规格怎么看 | 🚧 |
+| [第 4 章 KV Cache 与注意力工程化](./docs/ch04-KV缓存与注意力工程化.md) | KV 显存公式、MHA→MLA、PagedAttention vs RadixAttention、前缀缓存陷阱 | 🚧 |
+| [第 5 章 调度与批处理](./docs/ch05-调度与批处理.md) | 连续批处理、Chunked Prefill、vLLM V1 架构、缓存感知路由 | 🚧 |
+| [第 6 章 并行策略全景](./docs/ch06-并行策略全景.md) | DP/TP/PP/SP、MoE 与 EP、并行决策表 | 🚧 |
+| [第 7 章 投机解码](./docs/ch07-投机解码.md) | Draft-Verify、六种方案选型、接受率、双引擎配置 | 🚧 |
+| [第 8 章 vLLM 快速上手与单机多卡部署](./docs/ch08-vLLM快速上手与多卡部署.md) | 安装三选一、离线/API、启动参数、单机多卡 TP/PP | 🚧 |
+| [第 9 章 vLLM 核心能力](./docs/ch09-vLLM核心能力.md) | 多卡多机、量化、结构化输出、LoRA、多模态、Embedding | 🚧 |
+| [第 10 章 vLLM 性能调优](./docs/ch10-vLLM性能调优.md) | 调优基线、显存/并发、`max-num-batched-tokens`、敏感度排序 | 🚧 |
+| [第 11 章 SGLang 快速上手与低延迟实战](./docs/ch11-SGLang快速上手.md) | 三种使用方式、前端 DSL、参数对照、命中率实战 | 🚧 |
+| [第 12 章 SGLang 核心能力](./docs/ch12-SGLang核心能力.md) | RadixAttention 实战、压缩 FSM、MoE 部署、Router、RL rollout | 🚧 |
+| [第 13 章 PD 分离与大规模部署](./docs/ch13-PD分离与大规模部署.md) | PD 分离架构、KV 传输、成本账、不该做的门槛 | 🚧 |
+| [第 14 章 双引擎选型与决策](./docs/ch14-双引擎选型与决策.md) | vLLM vs SGLang、横向对比、国产化适配、选型决策树 | 🚧 |
+| [第 15 章 GPUStack 是什么](./docs/ch15-GPUStack是什么.md) | 定位（MaaS+GPUaaS）、架构解剖（Server/Worker/Gateway/Ray）、请求数据流、硬件版图 | 🚧 |
+| [第 16 章 装起一座 GPUStack](./docs/ch16-安装GPUStack.md) | 前置检查、一键安装、纳管 Worker、单机多卡、Web 控制台、排障 | 🚧 |
+| [第 17 章 部署模型：从 GPU 到 OpenAI API](./docs/ch17-部署模型到API.md) | 模型来源、四种部署模式、自动引擎选择、API Key/Endpoint/Playground、接入上层应用、计量限流 | 🚧 |
+| [第 18 章 GPUStack 技术栈深潜](./docs/ch18-GPUStack技术栈深潜.md) | Binpack/Spread 调度、Ray 分布式 vLLM、Higress 网关、Prometheus/Grafana、加速集成、规模化复盘 | 🚧 |
+| [第 19 章 压测与可观测](./docs/ch19-压测与可观测.md) | 负载建模、压测陷阱、吞吐-延迟拐点、P99 诊断、监控面板 | 🚧 |
+| [第 20 章 生产部署架构](./docs/ch20-生产部署架构.md) | 部署形态、K8s、网关五职责、灰度、成本优化、完整架构示例 | 🚧 |
+| [第 21 章 完整案例: 3分钟搭建跨州算力工厂](./docs/ch21-完整案例.md) | 3分钟搭建跨州算力工厂 | 🚧 |
 
 ## ✨核心贡献者
 - [牧小熊-项目负责人](https://github.com/muxiaoxiong)(Datawhale成员)
