@@ -1,3 +1,7 @@
 node_modules/
 docs/.vitepress/dist
 docs/.vitepress/cache
+
+# 第 15 章及以后的章节暂不提交
+docs/ch1[5-9]-*.md
+docs/ch2[0-9]-*.md
