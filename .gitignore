@@ -5,3 +5,9 @@ docs/.vitepress/cache
 # 第 15 章及以后的章节暂不提交
 docs/ch1[5-9]-*.md
 docs/ch2[0-9]-*.md
+
+# 已从正文移除的章节（本地归档，不随仓库发布）
+docs/archive/
+
+# 本地工作目录（记忆、备份）
+.workbuddy/
