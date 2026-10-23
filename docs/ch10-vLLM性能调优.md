@@ -123,7 +123,7 @@ vLLM 一升级默认值就会变——把命令当数据存，是跨版本对比
     2 × num_layers × num_kv_heads × head_dim × bytes_per_elem
 ```
 
-- `2`：K 和 V 两份；`bytes_per_elem`：BF16 = 2 字节，FP8 KV = 1 字节（见 8.2 与第 4.7 节）
+- `2`：K 和 V 两份；`bytes_per_elem`：BF16 = 2 字节，FP8 KV = 1 字节（见 8.2 与第 4.8 节）
 - GQA / MQA 里 `num_kv_heads` 远小于 `num_attention_heads`，这正是它们省显存的原因
 
 再估算「KV Cache 池能放多少 token」：
@@ -152,7 +152,7 @@ KV 容量(token 数) ≈ KV 池总字节 / 每个 token 的 KV 字节数
 
 > **`max-num-seqs` 本身几乎不直接导致启动期 OOM。**
 
-原因在 PagedAttention（第 4.3 节）：KV Cache **按需、按块**分配，不是一次性预留，它只是**并发软上限**。真正决定启动期 OOM 的是 `gpu-memory-utilization`（决定 KV 池大小）与 `max-model-len`（开 128K 而卡只有 24GB，权重+位置编码先把显存吃穿）。
+原因在 PagedAttention（第 4.4 节）：KV Cache **按需、按块**分配，不是一次性预留，它只是**并发软上限**。真正决定启动期 OOM 的是 `gpu-memory-utilization`（决定 KV 池大小）与 `max-model-len`（开 128K 而卡只有 24GB，权重+位置编码先把显存吃穿）。
 
 所以 `max-num-seqs` 调很大的后果**不是 OOM，是「排队」和「抢占抖动」**：设太小（如 32）请求在外排队；设太大（如 1024）则 KV 池有限，总 token 逼近容量时触发**抢占（preemption）**，表现为 TPOT 尖刺和 P99 拉长，**不是崩，是抖**。正确调法是算出理论并发再设其 70%–90%。
 
@@ -249,7 +249,7 @@ write_csv("sweep_result.csv", log)
 
 1. **`max-num-batched-tokens` 要调大**（呼应 8.3）。长文本常需 16384–32768，预算太小会把 prefill 切成极多 chunk。
 2. **`max-model-len` 按真实上限设，别拍满**。开 128K 而实际只有 8K，位置编码缓冲和块表上限白占显存；设成「真实 P99 长度 × 1.2」通常够。
-3. **KV Cache 量化**（`kv-cache-dtype`，精度验证见第 4.7 节）：KV 池占用砍半、并发翻倍，代价是精度。
+3. **KV Cache 量化**（`kv-cache-dtype`，精度验证见第 4.8 节）：KV 池占用砍半、并发翻倍，代价是精度。
 4. **抢占代价更痛**。长序列被换出的重算成本是短序列的指数级，`max-num-seqs` 要更保守。
 
 **长上下文的显存账（构造示例）**。换成 32K 上下文：平均序列长度从 768 变成 32768，KV 容量仍是约 5600 token——**并发直接从约 7 跌到 0.17**。不是算力不够，是 KV 池被单个长序列吃穿。破解靠：① FP8 KV；② GQA/MLA 从结构上砍 `num_kv_heads`（见第 4.2 节）；③ `max-model-len` 收紧到真实 P99。
@@ -258,7 +258,7 @@ write_csv("sweep_result.csv", log)
 
 ### 前缀缓存在长上下文下的价值
 
-`--enable-prefix-caching` 在长上下文 + 多轮/RAG/agentic 负载下价值被放大：一个 8K 的 system prompt 被上百个请求共享时，**只有第一个请求付 prefill 全款**。但第 4.6 节的陷阱更致命：
+`--enable-prefix-caching` 在长上下文 + 多轮/RAG/agentic 负载下价值被放大：一个 8K 的 system prompt 被上百个请求共享时，**只有第一个请求付 prefill 全款**。但第 4.7 节的陷阱更致命：
 
 - **system prompt 注入时间戳 / request_id** → 每个请求前缀都不同 → 命中率归零。
 - **多副本轮询** → 命中率被稀释为 1/N（见 5.6 节缓存感知路由）。

@@ -122,7 +122,7 @@ def multi_style(s, question):
 
 > **DSL 本身并不比自动前缀缓存"更会命中"。RadixAttention 的命中判定，和 vLLM 的 automatic prefix cache 一样，本质都是"两个请求的 token 前缀是否逐 token 相同"。DSL 真正的价值，是把"前缀是否相同"从运气变成了你可以主动设计的东西。**
 
-**第一层**：命中只看 token 序列，模型、tokenizer、拼接方式稍有不同就破。**第二层**：手写 f-string 里的时间戳、随机 request_id、按请求 shuffle 的 few-shot 顺序、长度不定的中间结果回填，都会让"本该相同"的前缀在第一个 token 就分叉，命中率掉到 0——第 4 章（4.6 节）称之为"前缀缓存的四个实战陷阱"。**第三层**：DSL 把"共享前缀"写成显式结构，RadixAttention 必然能匹配上——vLLM 那边靠运气 + 纪律，这边由代码控制流保证，这不是概率，是构造使然。
+**第一层**：命中只看 token 序列，模型、tokenizer、拼接方式稍有不同就破。**第二层**：手写 f-string 里的时间戳、随机 request_id、按请求 shuffle 的 few-shot 顺序、长度不定的中间结果回填，都会让"本该相同"的前缀在第一个 token 就分叉，命中率掉到 0——第 4 章（4.7 节）称之为"前缀缓存的四个实战陷阱"。**第三层**：DSL 把"共享前缀"写成显式结构，RadixAttention 必然能匹配上——vLLM 那边靠运气 + 纪律，这边由代码控制流保证，这不是概率，是构造使然。
 
 **诚实的边界**：不写 `fork`、只把 DSL 当模板引擎用，前缀共享能力和 vLLM 自动前缀缓存没有本质差别——都靠 token 相同。DSL 的红利只在"确实利用它的结构（分支、复用、受约束生成）"时才兑现：它没给缓存加魔法，只是给了你一把能稳定造出"可复用前缀"的尺子。
 
@@ -187,7 +187,7 @@ def multi_style(s, question):
 
 ### 11.5.6 `--enable-prefix-caching`（前缀缓存，默认开启）
 
-默认**开启**（`--disable-prefix-caching` 可关），是 SGLang 相对"朴素 vLLM 老版本"最大的红利来源，**通常不用动**；调试用 `--enable-cache-report`（见 9.1）。手滑关掉 → 多轮对话/RAG/共享 system prompt 的重复 prefill 全浪费；prompt 自带随机前缀却开着 → 命中率本就 0，先修 prompt（见 4.6 节）。
+默认**开启**（`--disable-prefix-caching` 可关），是 SGLang 相对"朴素 vLLM 老版本"最大的红利来源，**通常不用动**；调试用 `--enable-cache-report`（见 9.1）。手滑关掉 → 多轮对话/RAG/共享 system prompt 的重复 prefill 全浪费；prompt 自带随机前缀却开着 → 命中率本就 0，先修 prompt（见 4.7 节）。
 
 这些参数彼此耦合（KV 容量 ↔ 并发 ↔ 延迟），别照抄博客的"最优参数"：先跑基线，再单点变量（方法见第 10.1 节）。
 
